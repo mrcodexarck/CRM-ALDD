@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - CRM</title>
+    <link rel="stylesheet" href="auth.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="login-container">
+        <div class="login-card">
+            <h1>Bienvenido de nuevo</h1>
+            <p class="subtitle">Accede a nuestro módulo de gestión CRM</p>
+
+            <div id="login-error" class="error-message" style="display: none;"></div>
+
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="email">Correo electrónico</label>
+                    <input type="email" id="email" required placeholder="tu@correo.com">
+                </div>
+
+                <div class="form-group">
+                    <div class="label-row">
+                        <label for="password">Contraseña</label>
+                        <a href="#" class="forgot-link">¿Olvidaste tu contraseña?</a>
+                    </div>
+                    <div class="password-input-container">
+                        <input type="password" id="password" required placeholder="••••••••">
+                        <span id="toggle-password" class="toggle-password">Mostrar</span>
+                    </div>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="remember">
+                    <label for="remember">Recordar mi sesión en este dispositivo</label>
+                </div>
+
+                <button type="submit" class="btn-login">Iniciar sesión</button>
+            </form>
+
+            <div class="login-footer">
+                ¿Aún no tienes cuenta? <a href="register.html">Crear una cuenta</a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="page-footer">
+        Copyright © 2026 Biblioteca de Conocimiento.
+    </footer>
+
+    <script type="module" src="login.js"></script>
+</body>
+</html>

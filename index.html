@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRM - Liaaddo</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fa-solid fa-layer-group"></i>
+                <span>Liaaddo</span>
+            </div>
+            <nav class="sidebar-nav">
+                <ul class="menu-list">
+                    <li class="menu-item has-submenu open">
+                        <button class="menu-btn" data-target="submenu-crm">
+                            <div class="menu-btn-left"><i class="fa-solid fa-users"></i><span>CRM</span></div>
+                            <i class="fa-solid fa-chevron-up arrow-icon"></i>
+                        </button>
+                        <ul class="submenu" id="submenu-crm">
+                            <li><a href="#" class="submenu-link active" data-title="Posibles clientes" data-module="posibles-clientes">Posibles clientes</a></li>
+                            <li><a href="#" class="submenu-link" data-title="Contactos" data-module="contactos">Contactos</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- CONTENIDO PRINCIPAL -->
+        <main class="main-content">
+            <header class="topbar">
+                <h1 id="page-title">Posibles clientes</h1>
+                <div class="user-profile" style="display: flex; align-items: center; gap: 15px;">
+                    <i class="fa-solid fa-user-circle"></i>
+                    <!-- Botón para Cerrar Sesión -->
+                    <button id="btn-logout" style="background: none; border: none; cursor: pointer; color: #666;" title="Cerrar sesión">
+                        <i class="fa-solid fa-arrow-right-from-bracket" style="font-size: 20px;"></i>
+                    </button>
+                </div>
+            </header>
+
+            <div class="content-area" id="content-area">
+                <!-- El JS cargará los módulos aquí -->
+            </div>
+        </main>
+    </div>
+
+    <!-- MODAL DE CONFIRMACIÓN PARA CERRAR SESIÓN -->
+    <div class="modal-overlay" id="logout-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>¿Cerrar sesión?</h2>
+            </div>
+            <div class="modal-body">
+                <p>¿Estás seguro de que deseas salir del sistema? Tendrás que volver a ingresar tus credenciales para acceder de nuevo.</p>
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="btn-cancel" id="btn-cancel-logout">Cancelar</button>
+                <button type="button" class="btn-confirm" id="btn-confirm-logout">Sí, cerrar sesión</button>
+            </div>
+        </div>
+    </div>
+    <!-- FIN DEL MODAL -->
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>

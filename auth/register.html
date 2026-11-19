@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Cuenta - CRM</title>
+    <link rel="stylesheet" href="auth.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="login-container">
+        <div class="login-card">
+            <h1>Crea tu cuenta</h1>
+            <p class="subtitle">Regístrate para acceder al CRM</p>
+
+            <div id="register-error" class="error-message" style="display: none;"></div>
+            <div id="register-success" class="success-message" style="display: none;"></div>
+
+            <form id="register-form">
+                <div class="form-group">
+                    <label for="email">Correo electrónico</label>
+                    <input type="email" id="email" required placeholder="tu@correo.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Contraseña</label>
+                    <div class="password-input-container">
+                        <input type="password" id="password" required placeholder="Mínimo 6 caracteres">
+                        <span id="toggle-password" class="toggle-password">Mostrar</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirm-password">Confirmar Contraseña</label>
+                    <input type="password" id="confirm-password" required placeholder="Repite tu contraseña">
+                </div>
+
+                <button type="submit" class="btn-login">Crear cuenta</button>
+            </form>
+
+            <div class="login-footer">
+                ¿Ya tienes una cuenta? <a href="login.html">Inicia sesión aquí</a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="page-footer">
+        Copyright © 2026 Biblioteca de Conocimiento.
+    </footer>
+
+    <script type="module" src="register.js"></script>
+</body>
+</html>
