@@ -1,0 +1,278 @@
+/* ==========================================
+   1. TABLERO KANBAN
+   ========================================== */
+.kanban-board {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    overflow-x: auto;
+    height: calc(100vh - 80px); /* Ajusta según tu header */
+    background-color: #f4f7f6;
+}
+
+.kanban-column {
+    flex: 1;
+    min-width: 300px;
+    max-width: 400px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    transition: background-color 0.2s;
+}
+
+.kanban-header {
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.kanban-header h3 {
+    margin: 0;
+    font-size: 15px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Puntitos de colores */
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+}
+.bg-blue { background-color: #3498db; }
+.bg-orange { background-color: #f39c12; }
+.bg-green { background-color: #2ecc71; }
+
+.badge-count {
+    background-color: #f4f7f6;
+    color: #666;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.kanban-cards {
+    padding: 15px;
+    flex: 1;
+    overflow-y: auto;
+    min-height: 150px;
+}
+
+/* Tarjeta del cliente (generada por JS) */
+.kanban-card {
+    background-color: #fff;
+    border: 1px solid #eaeaea;
+    border-radius: 6px;
+    padding: 15px;
+    margin-bottom: 10px;
+    cursor: grab;
+    transition: transform 0.1s, box-shadow 0.1s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.kanban-card:hover {
+    box-shadow: 0 4px 8px rgba(59, 29, 112, 0.1);
+    transform: translateY(-2px);
+}
+.kanban-card:active {
+    cursor: grabbing;
+}
+
+/* ==========================================
+   2. PANEL LATERAL 360 (OFF-CANVAS)
+   ========================================== */
+.side-panel-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.side-panel-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.side-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 400px;
+    max-width: 100%;
+    height: 100vh;
+    background-color: #fff;
+    z-index: 1001;
+    transform: translateX(100%); /* Oculto por defecto a la derecha */
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    box-shadow: -4px 0 15px rgba(0,0,0,0.1);
+}
+
+.side-panel.active {
+    transform: translateX(0); /* Se desliza hacia adentro */
+}
+
+/* Header del Panel */
+.panel-header {
+    padding: 20px;
+    border-bottom: 1px solid #eaeaea;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.panel-header h2 {
+    margin: 0 0 5px 0;
+    font-size: 18px;
+    color: #3b1d70; /* Tu morado principal */
+}
+
+.panel-subtitle {
+    font-size: 12px;
+    color: #888;
+}
+
+.btn-close-panel {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #999;
+    cursor: pointer;
+    padding: 5px;
+}
+.btn-close-panel:hover {
+    color: #ff4757;
+}
+
+/* Contenido con scroll */
+.side-panel > div:not(.panel-header):not(.panel-footer) {
+    overflow-y: auto;
+}
+
+/* Acciones rápidas */
+.panel-quick-actions {
+    display: flex;
+    justify-content: space-around;
+    padding: 15px;
+    border-bottom: 1px solid #eaeaea;
+    background-color: #f9f9f9;
+}
+
+.action-btn {
+    background: none;
+    border: none;
+    color: #3b1d70;
+    font-size: 13px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    font-weight: 600;
+}
+.action-btn:hover {
+    color: #5a3d99;
+}
+
+/* Secciones de Información */
+.panel-section {
+    padding: 20px;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.panel-section h3 {
+    margin: 0 0 15px 0;
+    font-size: 14px;
+    color: #333;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.info-item .label {
+    font-size: 12px;
+    color: #888;
+}
+
+.info-item .value {
+    font-size: 14px;
+    color: #333;
+    font-weight: 500;
+}
+
+/* Select del panel */
+.panel-select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #333;
+    outline: none;
+}
+
+/* Footer del panel */
+.panel-footer {
+    padding: 15px 20px;
+    border-top: 1px solid #eaeaea;
+    background-color: #fff;
+}
+
+.btn-cancel {
+    width: 100%;
+    padding: 12px;
+    background-color: #f1f1f1;
+    color: #333;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-cancel:hover {
+    background-color: #e0e0e0;
+}
+
+/* Ajustes para el section-title-row (Notas y Actividades) */
+.section-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.section-title-row h3 {
+    margin: 0;
+}
+.section-title-row a {
+    color: #3b1d70;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+}

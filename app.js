@@ -38,7 +38,7 @@ btnConfirmLogout.addEventListener('click', async () => {
 // 3. LÓGICA DEL CRM (Módulos y Menú)
 // ==========================================
 function iniciarCRM() {
-    // Menú lateral
+    // Menú lateral (abrir/cerrar submenús)
     document.querySelectorAll('.menu-btn').forEach(button => {
         button.addEventListener('click', (e) => {
             e.preventDefault();
@@ -66,11 +66,8 @@ function iniciarCRM() {
                 link.id = idCSS;
                 link.rel = 'stylesheet';
                 link.href = `./modules/${nombreModulo}/estilos.css`;
-                
-                // Mensajes en consola para diagnosticar
                 link.onload = () => console.log(`✅ CSS cargado correctamente: ${nombreModulo}`);
-                link.onerror = () => console.error(`❌ Error al cargar el CSS: ${nombreModulo}. Revisa que la ruta sea correcta.`);
-                
+                link.onerror = () => console.error(`❌ Error al cargar el CSS: ${nombreModulo}.`);
                 document.head.appendChild(link);
             }
 
@@ -84,7 +81,7 @@ function iniciarCRM() {
         }
     }
 
-    // Escuchar clics en el menú
+    // Escuchar clics en el menú para cambiar de módulo
     document.querySelectorAll('.submenu-link').forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
@@ -102,6 +99,8 @@ function iniciarCRM() {
         });
     });
 
-    // Cargar el módulo inicial
-    cargarModulo('posibles-clientes', 'Posibles clientes');
+    // ==========================================
+    // CARGAR EL MÓDULO INICIAL (DASHBOARD)
+    // ==========================================
+    cargarModulo('dashboard', 'Dashboard');
 }

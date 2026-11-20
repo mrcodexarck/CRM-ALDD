@@ -5,7 +5,9 @@ export function init() {
     const tbody = document.getElementById('clientes-tbody');
     const coleccionClientes = collection(db, "CLIENTES");
 
-    // Referencias al DOM
+    // ==========================================
+    // REFERENCIAS AL DOM (MODAL CREAR / EDITAR)
+    // ==========================================
     const btnCrear = document.getElementById('btn-crear');
     const modal = document.getElementById('modal-cliente');
     const btnCerrarModal = document.getElementById('btn-cerrar-modal');
@@ -14,7 +16,7 @@ export function init() {
     const modalTitle = document.getElementById('modal-title'); 
     const btnGuardar = document.getElementById('btn-guardar');
     
-    // Inputs
+    // Inputs del formulario
     const inputNombre = document.getElementById('input-nombre');
     const inputEmail = document.getElementById('input-email');
     const inputTelefono = document.getElementById('input-telefono');
@@ -23,11 +25,35 @@ export function init() {
     const searchInput = document.getElementById('search-input');
     const errorMessageDiv = document.getElementById('modal-error-message');
 
+    // ==========================================
+    // REFERENCIAS AL DOM (MODAL VER DETALLES)
+    // ==========================================
+    const modalVer = document.getElementById('modal-ver-cliente');
+    const btnCerrarVer = document.getElementById('btn-cerrar-ver');
+    const btnCerrarVerFooter = document.getElementById('btn-cerrar-ver-footer');
+    
+    // Spans de texto del modal Ver
+    const viewNombre = document.getElementById('view-nombre');
+    const viewEmail = document.getElementById('view-email');
+    const viewTelefono = document.getElementById('view-telefono');
+    const viewPropietario = document.getElementById('view-propietario');
+    const viewEstado = document.getElementById('view-estado');
+
+    // ==========================================
+    // REFERENCIAS AL DOM (MODAL ELIMINAR)
+    // ==========================================
+    const modalEliminar = document.getElementById('modal-eliminar-cliente');
+    const btnCancelarEliminar = document.getElementById('btn-cancelar-eliminar');
+    const btnConfirmarEliminar = document.getElementById('btn-confirmar-eliminar');
+
     // Variables de estado
     let clienteEditandoId = null; 
-    let clientesMap = new Map(); // Guarda los datos en memoria para no consultar la BD al editar
+    let clientesMap = new Map(); // Guarda los datos en memoria
+    let clienteAEliminarId = null; // Guarda el ID a eliminar
 
-    // 1. Escuchar datos en tiempo real
+    // ==========================================
+    // 1. ESCUCHAR DATOS EN TIEMPO REAL (TABLA)
+    // ==========================================
     onSnapshot(coleccionClientes, (snapshot) => {
         tbody.innerHTML = ''; 
         clientesMap.clear();
@@ -41,7 +67,7 @@ export function init() {
             const cliente = docSnap.data();
             const idCliente = docSnap.id;
             
-            // Guardamos los datos en el mapa
+            // Guardamos los datos en el mapa para acceso rápido
             clientesMap.set(idCliente, cliente);
 
             const tr = document.createElement('tr');
@@ -77,10 +103,13 @@ export function init() {
         });
     });
 
-    // 2. LÓGICA DEL MENÚ DE ACCIONES
+    // ==========================================
+    // 2. LÓGICA DEL MENÚ DE ACCIONES (3 PUNTITOS)
+    // ==========================================
     tbody.addEventListener('click', async (e) => {
         const actionBtn = e.target.closest('.btn-actions');
         
+        // Abrir/Cerrar el menú
         if (actionBtn) {
             e.preventDefault();
             e.stopPropagation();
@@ -99,48 +128,52 @@ export function init() {
             return;
         }
 
+        // Detectar clic en una opción del menú
         const dropdownItem = e.target.closest('.dropdown-item');
         if (dropdownItem) {
             const id = dropdownItem.dataset.id;
             
+            // --- ACCIÓN: VER DETALLES ---
             if (dropdownItem.classList.contains('btn-ver')) {
-                alert(`Ver detalles del cliente: ${id}`);
-            } 
-            else if (dropdownItem.classList.contains('btn-editar')) {
-                // --- LÓGICA DE EDICIÓN ---
                 const cliente = clientesMap.get(id);
                 if (cliente) {
-                    // Rellenar los inputs
+                    viewNombre.textContent = cliente.nombre || 'No registrado';
+                    viewEmail.textContent = cliente.email || 'No registrado';
+                    viewTelefono.textContent = cliente.telefono || 'No registrado';
+                    viewPropietario.textContent = cliente.propietario || 'No registrado';
+                    viewEstado.textContent = cliente.estado || 'Nuevo';
+                    modalVer.classList.add('active');
+                }
+            } 
+            // --- ACCIÓN: EDITAR ---
+            else if (dropdownItem.classList.contains('btn-editar')) {
+                const cliente = clientesMap.get(id);
+                if (cliente) {
                     inputNombre.value = cliente.nombre || '';
                     inputEmail.value = cliente.email || '';
                     inputTelefono.value = cliente.telefono || '';
                     inputPropietario.value = cliente.propietario || '';
                     inputEstado.value = cliente.estado || 'Nuevo';
 
-                    // Cambiar textos del modal para avisar que estamos editando
                     clienteEditandoId = id;
                     modalTitle.textContent = 'Editar Posible Cliente';
                     btnGuardar.textContent = 'Actualizar Cliente';
-
-                    // Mostrar el modal
                     modal.classList.add('active');
                 }
             } 
+            // --- ACCIÓN: ELIMINAR ---
             else if (dropdownItem.classList.contains('btn-eliminar')) {
-                if (confirm('¿Estás seguro de que deseas eliminar este cliente?')) {
-                    try {
-                        await deleteDoc(doc(db, "CLIENTES", id));
-                    } catch (error) {
-                        console.error("Error al eliminar:", error);
-                        alert("No se pudo eliminar.");
-                    }
-                }
+                // Guardamos el ID y abrimos el modal bonito
+                clienteAEliminarId = id;
+                modalEliminar.classList.add('active');
             }
+            
+            // Cerrar el menú después de hacer clic
             dropdownItem.closest('.dropdown-menu').classList.remove('active');
         }
     });
 
-    // Cerrar menús
+    // Cerrar menús al hacer clic fuera o hacer scroll
     document.addEventListener('click', (e) => {
         if (!e.target.closest('.actions-container')) {
             document.querySelectorAll('.dropdown-menu.active').forEach(menu => menu.classList.remove('active'));
@@ -150,17 +183,20 @@ export function init() {
         document.querySelectorAll('.dropdown-menu.active').forEach(menu => menu.classList.remove('active'));
     }, true);
 
-    // 3. Lógica del Botón "Crear" (Para que vuelva a modo creación)
+    // ==========================================
+    // 3. LÓGICA DE LOS MODALES
+    // ==========================================
+    
+    // --- Modal Crear/Editar ---
     btnCrear.addEventListener('click', () => {
-        clienteEditandoId = null; // Limpiamos la variable
-        modalTitle.textContent = 'Nuevo Posible Cliente'; // Título original
-        btnGuardar.textContent = 'Guardar Cliente'; // Texto original
+        clienteEditandoId = null;
+        modalTitle.textContent = 'Nuevo Posible Cliente';
+        btnGuardar.textContent = 'Guardar Cliente';
         formCliente.reset();
         errorMessageDiv.style.display = 'none';
         modal.classList.add('active');
     });
     
-    // 4. Cerrar el Modal
     const cerrarModal = () => {
         modal.classList.remove('active');
         formCliente.reset();
@@ -172,7 +208,38 @@ export function init() {
     btnCancelar.addEventListener('click', cerrarModal);
     modal.addEventListener('click', (e) => { if (e.target === modal) cerrarModal(); });
 
-    // 5. GUARDAR DATOS (Detecta si es Nuevo o si es Edición)
+    // --- Modal Ver Detalles ---
+    const cerrarModalVer = () => modalVer.classList.remove('active');
+
+    btnCerrarVer.addEventListener('click', cerrarModalVer);
+    btnCerrarVerFooter.addEventListener('click', cerrarModalVer);
+    modalVer.addEventListener('click', (e) => { if (e.target === modalVer) cerrarModalVer(); });
+
+    // --- Modal Eliminar ---
+    const cerrarModalEliminar = () => {
+        modalEliminar.classList.remove('active');
+        clienteAEliminarId = null;
+    };
+
+    btnCancelarEliminar.addEventListener('click', cerrarModalEliminar);
+    modalEliminar.addEventListener('click', (e) => { if (e.target === modalEliminar) cerrarModalEliminar(); });
+
+    btnConfirmarEliminar.addEventListener('click', async () => {
+        if (clienteAEliminarId) {
+            try {
+                await deleteDoc(doc(db, "CLIENTES", clienteAEliminarId));
+                cerrarModalEliminar();
+            } catch (error) {
+                console.error("Error al eliminar:", error);
+                alert("No se pudo eliminar el cliente.");
+                cerrarModalEliminar();
+            }
+        }
+    });
+
+    // ==========================================
+    // 4. GUARDAR DATOS (CREAR O ACTUALIZAR)
+    // ==========================================
     formCliente.addEventListener('submit', async (e) => {
         e.preventDefault();
         errorMessageDiv.style.display = 'none';
@@ -187,11 +254,9 @@ export function init() {
 
         try {
             if (clienteEditandoId) {
-                // MODO EDICIÓN: Actualiza el documento existente
                 const docRef = doc(db, "CLIENTES", clienteEditandoId);
                 await updateDoc(docRef, datosFormulario);
             } else {
-                // MODO CREACIÓN: Crea un documento nuevo
                 await addDoc(coleccionClientes, {
                     ...datosFormulario,
                     etiquetas: ['Cliente'],
@@ -207,7 +272,9 @@ export function init() {
         }
     });
 
-    // 6. Buscador
+    // ==========================================
+    // 5. BUSCADOR EN VIVO
+    // ==========================================
     searchInput.addEventListener('input', (e) => {
         const termino = e.target.value.toLowerCase();
         tbody.querySelectorAll('tr').forEach(fila => {

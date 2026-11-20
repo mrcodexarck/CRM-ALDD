@@ -74,3 +74,56 @@
         </form>
     </div>
 </div>
+
+<!-- MODAL PARA VER DETALLES -->
+<div class="modal-overlay" id="modal-ver-cliente">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Detalles del Cliente</h2>
+            <button class="btn-close" id="btn-cerrar-ver"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        
+        <div class="view-details-body">
+            <div class="detail-group">
+                <span class="detail-label">Nombre completo:</span>
+                <span class="detail-value" id="view-nombre">-</span>
+            </div>
+            <div class="detail-group">
+                <span class="detail-label">Correo Electrónico:</span>
+                <span class="detail-value" id="view-email">-</span>
+            </div>
+            <div class="detail-group">
+                <span class="detail-label">Teléfono:</span>
+                <span class="detail-value" id="view-telefono">-</span>
+            </div>
+            <div class="detail-group">
+                <span class="detail-label">Propietario:</span>
+                <span class="detail-value" id="view-propietario">-</span>
+            </div>
+            <div class="detail-group">
+                <span class="detail-label">Estado:</span>
+                <span class="detail-value" id="view-estado">-</span>
+            </div>
+        </div>
+
+        <div class="modal-actions">
+            <button type="button" class="btn-primary" id="btn-cerrar-ver-footer">Cerrar</button>
+        </div>
+    </div>
+</div>
+
+<!-- NUEVO MODAL PARA CONFIRMAR ELIMINACIÓN -->
+<div class="modal-overlay" id="modal-eliminar-cliente">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>¿Eliminar cliente?</h2>
+        </div>
+        <div class="modal-body">
+            <p>¿Estás seguro de que deseas eliminar este cliente? Esta acción no se puede deshacer.</p>
+        </div>
+        <div class="modal-actions">
+            <button type="button" class="btn-cancel" id="btn-cancelar-eliminar">Cancelar</button>
+            <button type="button" class="btn-confirm" id="btn-confirmar-eliminar">Sí, eliminar</button>
+        </div>
+    </div>
+</div>

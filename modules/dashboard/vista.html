@@ -1,0 +1,67 @@
+<div class="dashboard-container">
+    <!-- TARJETAS DE ESTADÍSTICAS -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon bg-purple">
+                <i class="fa-solid fa-users"></i>
+            </div>
+            <div class="stat-details">
+                <h3>Total Clientes</h3>
+                <h2 id="stat-total">0</h2>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon bg-blue">
+                <i class="fa-solid fa-user-plus"></i>
+            </div>
+            <div class="stat-details">
+                <h3>Nuevos</h3>
+                <h2 id="stat-nuevos">0</h2>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon bg-orange">
+                <i class="fa-solid fa-phone"></i>
+            </div>
+            <div class="stat-details">
+                <h3>Contactados</h3>
+                <h2 id="stat-contactados">0</h2>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon bg-green">
+                <i class="fa-solid fa-check-double"></i>
+            </div>
+            <div class="stat-details">
+                <h3>Calificados</h3>
+                <h2 id="stat-calificados">0</h2>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECCIÓN INFERIOR (ÚLTIMOS CLIENTES) -->
+    <div class="recent-section">
+        <div class="section-header">
+            <h2>Últimos clientes agregados</h2>
+            <a href="#" class="link-ver-todos" id="link-ver-todos">Ver todos</a>
+        </div>
+        <div class="table-container">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>NOMBRE</th>
+                        <th>ESTADO</th>
+                        <th>PROPIETARIO</th>
+                        <th>FECHA REGISTRO</th>
+                    </tr>
+                </thead>
+                <tbody id="recent-tbody">
+                    <tr><td colspan="4" style="text-align:center; padding: 20px;">Cargando datos...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

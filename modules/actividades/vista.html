@@ -1,0 +1,163 @@
+<div class="activities-toolbar">
+    <div class="filters-grid">
+        <!-- Filtro Estado (Ahora está dentro de la cuadrícula) -->
+        <div class="filter-group">
+            <label>Estado</label>
+            <select id="filtro-estado">
+                <option value="Todos">Todos</option>
+                <option value="Pendientes">Pendientes</option>
+                <option value="Terminadas">Terminadas</option>
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <label>Tipo de actividad</label>
+            <select id="filtro-tipo">
+                <option value="Todos">Todos</option>
+                <option value="Cita">Cita</option>
+                <option value="Tarea">Tarea</option>
+                <option value="Llamada">Llamada</option>
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <label>Propietario</label>
+            <select id="filtro-propietario">
+                <option value="Todos">Todos</option>
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <label>Para</label>
+            <select id="filtro-fecha">
+                <option value="Hoy">Hoy</option>
+                <option value="Todos">Todos</option>
+            </select>
+        </div>
+
+        <div class="filter-action">
+            <button class="btn-primary" id="btn-consultar">Consultar</button>
+        </div>
+    </div>
+</div>
+
+<div class="table-container" style="margin-top: 20px;">
+    <div style="padding: 15px; display: flex; justify-content: flex-end; border-bottom: 1px solid #eee;">
+        <button class="btn-primary" id="btn-crear-actividad"><i class="fa-solid fa-plus"></i> Crear </button>
+    </div>
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>ESTADO</th>
+                <th>ACTIVIDAD</th>
+                <th>TIPO DE ACTIVIDAD</th>
+                <th>CONTACTO ASOCIADO</th>
+                <th>PROPIETARIO</th>
+                <th>FEC. FIN</th>
+                <th>ACCIONES</th>
+            </tr>
+        </thead>
+        <tbody id="tabla-actividades">
+            <tr><td colspan="7" style="text-align:center; padding: 20px;">Cargando actividades...</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- MODAL CREAR ACTIVIDAD -->
+<div class="modal-overlay" id="modal-actividad">
+    <div class="modal-content modal-lg">
+        <div class="modal-header">
+            <h2>Crear actividad</h2>
+            <button class="btn-close" id="btn-cerrar-modal-act"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        
+        <form id="form-actividad">
+            <div class="modal-body-scroll">
+                
+                <!-- BUSCADOR DE CONTACTO -->
+                <div class="form-group custom-select-wrapper">
+                    <label>Contacto *</label>
+                    <input type="text" id="act-contacto-search" placeholder="Buscar contacto por nombre..." autocomplete="off">
+                    <input type="hidden" id="act-contacto"> 
+                    <div class="custom-dropdown" id="dropdown-contacto"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Tipo de actividad</label>
+                    <select id="act-tipo" required>
+                        <option value="Cita">Cita</option>
+                        <option value="Tarea">Tarea</option>
+                        <option value="Llamada">Llamada</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Título</label>
+                    <input type="text" id="act-titulo" required placeholder="Ingresa un título para tu actividad">
+                </div>
+
+                <div class="form-group">
+                    <label>Descripción</label>
+                    <textarea id="act-descripcion" rows="3" placeholder="Ingresa una descripción"></textarea>
+                </div>
+
+                <div class="form-row-2">
+                    <div class="form-group">
+                        <label>Fecha inicial</label>
+                        <input type="date" id="act-fecha-inicio" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Hora de inicio</label>
+                        <input type="time" id="act-hora-inicio" required>
+                    </div>
+                </div>
+
+                <div class="form-row-2">
+                    <div class="form-group">
+                        <label>Fecha final</label>
+                        <input type="date" id="act-fecha-fin" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Hora de finalización</label>
+                        <input type="time" id="act-hora-fin" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Propietario</label>
+                    <select id="act-propietario" required>
+                        <option value="Joan Danilo Sandoval Velásquez">Joan Danilo Sandoval Velásquez</option>
+                    </select>
+                </div>
+
+                <!-- BUSCADOR DE NEGOCIO -->
+                <div class="form-group custom-select-wrapper">
+                    <label>Negocio</label>
+                    <input type="text" id="act-negocio-search" placeholder="Buscar negocio por nombre..." autocomplete="off">
+                    <input type="hidden" id="act-negocio"> 
+                    <div class="custom-dropdown" id="dropdown-negocio"></div>
+                </div>
+
+                <div class="form-group">
+                    <label>Colaboradores</label>
+                    <input type="text" id="act-colaboradores" placeholder="Agregar colaboradores">
+                </div>
+
+                <div class="form-group toggle-group">
+                    <label class="switch">
+                        <input type="checkbox" id="act-completada">
+                        <span class="slider round"></span>
+                    </label>
+                    <span class="toggle-label">Marcar como realizada</span>
+                </div>
+
+            </div> <!-- FIN DEL CONTENEDOR CON SCROLL -->
+
+            <!-- BOTONES FIJOS ABAJO -->
+            <div class="modal-actions">
+                <button type="button" class="btn-secondary" id="btn-cancelar-act">Cancelar</button>
+                <button type="submit" class="btn-primary">Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>

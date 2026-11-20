@@ -1,0 +1,108 @@
+<div class="kanban-board">
+    <!-- COLUMNA: NUEVOS -->
+    <div class="kanban-column" data-status="Nuevo">
+        <div class="kanban-header">
+            <h3><span class="dot bg-blue"></span> Nuevos</h3>
+            <span class="badge-count" id="count-nuevo">0</span>
+        </div>
+        <div class="kanban-cards" id="col-nuevo">
+            <!-- Aquí se inyectarán las tarjetas por JS -->
+        </div>
+    </div>
+
+    <!-- COLUMNA: CONTACTADOS -->
+    <div class="kanban-column" data-status="Contactado">
+        <div class="kanban-header">
+            <h3><span class="dot bg-orange"></span> Contactados</h3>
+            <span class="badge-count" id="count-contactado">0</span>
+        </div>
+        <div class="kanban-cards" id="col-contactado">
+            <!-- Aquí se inyectarán las tarjetas por JS -->
+        </div>
+    </div>
+
+    <!-- COLUMNA: CALIFICADOS -->
+    <div class="kanban-column" data-status="Calificado">
+        <div class="kanban-header">
+            <h3><span class="dot bg-green"></span> Calificados</h3>
+            <span class="badge-count" id="count-calificado">0</span>
+        </div>
+        <div class="kanban-cards" id="col-calificado">
+            <!-- Aquí se inyectarán las tarjetas por JS -->
+        </div>
+    </div>
+</div> 
+
+<!-- PANEL LATERAL 360 -->
+<div class="side-panel-overlay" id="panel-overlay"></div>
+<div class="side-panel" id="panel-360">
+    <div class="panel-header">
+        <div>
+            <h2 id="panel-nombre">Nombre del Cliente</h2>
+            <span class="panel-subtitle" id="panel-fecha">Creado recientemente</span>
+        </div>
+        <button class="btn-close-panel" id="btn-close-panel"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+
+    <!-- Acciones rápidas -->
+    <div class="panel-quick-actions">
+        <button class="action-btn"><i class="fa-solid fa-envelope"></i><span>Email</span></button>
+        <button class="action-btn"><i class="fa-solid fa-phone"></i><span>Llamada</span></button>
+        <button class="action-btn"><i class="fa-solid fa-arrow-right"></i><span>Más</span></button>
+    </div>
+
+    <div class="panel-section">
+        <h3>Información del negocio</h3>
+        <div class="info-grid">
+            <div class="info-item">
+                <span class="label">Proceso</span>
+                <span class="value">Principal</span>
+            </div>
+            <div class="info-item">
+                <span class="label">Valor</span>
+                <span class="value">$ 0,00</span>
+            </div>
+            <div class="info-item">
+                <span class="label">Probabilidad</span>
+                <span class="value">100 %</span>
+            </div>
+            <div class="info-item">
+                <span class="label">Propietario</span>
+                <span class="value" id="panel-propietario">-</span>
+            </div>
+            <div class="info-item">
+                <span class="label">Fecha de cierre prevista</span>
+                <span class="value">Hoy</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel-section">
+        <h3>Etapa</h3>
+        <select id="panel-select-etapa" class="panel-select">
+            <option value="Nuevo">Nuevo</option>
+            <option value="Contactado">Contactado</option>
+            <option value="Calificado">Calificado</option>
+        </select>
+    </div>
+
+    <div class="panel-section panel-list-section">
+        <div class="section-title-row">
+            <h3>Notas</h3>
+            <a href="#">Agregar</a>
+        </div>
+        <p class="text-muted" style="font-size: 13px;">No hay notas.</p>
+    </div>
+
+    <div class="panel-section panel-list-section">
+        <div class="section-title-row">
+            <h3>Actividades</h3>
+            <a href="#">Agregar</a>
+        </div>
+        <p class="text-muted" style="font-size: 13px;">No hay actividades pendientes.</p>
+    </div>
+
+    <div class="panel-footer">
+        <button class="btn-cancel" id="btn-cerrar-panel-footer">Cerrar</button>
+    </div>
+</div>
