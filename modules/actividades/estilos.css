@@ -219,16 +219,82 @@ input:checked + .slider:before { transform: translateX(18px); }
     transition: background 0.2s, color 0.2s;
 }
 
-.btn-toggle {
-    color: #2ecc71; 
-}
-.btn-toggle:hover {
-    background-color: rgba(46, 204, 113, 0.1);
-}
-
 .btn-delete {
     color: #e74c3c; 
 }
 .btn-delete:hover {
     background-color: rgba(231, 76, 60, 0.1);
+}
+
+/* ==========================================
+   🔥 NUEVOS ESTILOS (DESPLEGABLE, EDITAR Y TRAZABILIDAD)
+   ========================================== */
+
+/* Botón de Editar (Lápiz azul) */
+.btn-edit {
+    color: #3498db;
+}
+.btn-edit:hover {
+    background-color: rgba(52, 152, 219, 0.1);
+}
+
+/* Desplegable de Estado en la tabla */
+.status-select {
+    border: none;
+    background: transparent;
+    font-weight: bold;
+    font-size: 13px;
+    cursor: pointer;
+    outline: none;
+    padding: 5px;
+    border-radius: 4px;
+    appearance: none; /* Quita la flecha por defecto del navegador */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 100%;
+}
+
+.status-select:hover {
+    background-color: #f0f0f0;
+}
+
+/* Mantener los colores cuando el select está en Pendiente o Terminada */
+.status-select.status-pendiente { color: #d97706; }
+.status-select.status-terminada { color: #059669; }
+
+/* Icono de la flecha para expandir detalles */
+.expand-btn {
+    cursor: pointer;
+    text-align: center;
+    color: #3b1d70;
+    font-size: 14px;
+}
+.expand-btn i {
+    transition: transform 0.3s ease;
+}
+
+/* Fila de detalles (Trazabilidad) */
+.details-row td {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-left: 3px solid #3b1d70; /* Tu morado principal */
+    font-size: 13px;
+    color: #555;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.details-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.details-grid ul {
+    margin: 5px 0 0 0;
+    padding-left: 20px;
+    line-height: 1.6;
+}
+
+.details-grid strong {
+    color: #333;
 }

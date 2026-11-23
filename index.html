@@ -23,7 +23,7 @@
                             <div class="menu-btn-left"><i class="fa-solid fa-users"></i><span>CRM</span></div>
                             <i class="fa-solid fa-chevron-up arrow-icon"></i>
                         </button>
-                                                <ul class="submenu" id="submenu-crm">
+                        <ul class="submenu" id="submenu-crm">
                             <li><a href="#" class="submenu-link active" data-title="Dashboard" data-module="dashboard">Dashboard</a></li>
                             <li><a href="#" class="submenu-link" data-title="Embudo de Ventas" data-module="pipeline">Embudo de Ventas</a></li>
                             <li><a href="#" class="submenu-link" data-title="Posibles clientes" data-module="posibles-clientes">Posibles clientes</a></li>
@@ -69,18 +69,21 @@
         </div>
     </div>
 
-    <!-- MODAL DE CONFIRMACIÓN PARA ELIMINAR CLIENTE -->
+    <!-- MODAL DE CONFIRMACIÓN GLOBAL PARA ELIMINAR -->
     <div class="modal-overlay" id="delete-modal">
         <div class="modal-content">
-            <div class="modal-header">
-                <h2>¿Eliminar cliente?</h2>
+            <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center;">
+                <h2 id="delete-modal-title">Eliminar Elemento</h2>
+                <button class="btn-close" id="btn-close-delete" style="background: none; border: none; font-size: 20px; cursor: pointer; color: #999;"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="modal-body">
-                <p>¿Estás seguro de que deseas eliminar este cliente? Esta acción no se puede deshacer.</p>
+                <p id="delete-modal-message">¿Estás seguro de que deseas eliminar este elemento?</p>
+                <p class="text-muted" style="font-size: 13px; margin-top: 5px;">Esta acción no se puede deshacer.</p>
             </div>
             <div class="modal-actions">
                 <button type="button" class="btn-cancel" id="btn-cancel-delete">Cancelar</button>
-                <button type="button" class="btn-confirm" id="btn-confirm-delete">Sí, eliminar</button>
+                <!-- Botón rojo usando la nueva clase btn-danger -->
+                <button type="button" class="btn-confirm btn-danger" id="btn-confirm-delete">Eliminar</button>
             </div>
         </div>
     </div>

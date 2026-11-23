@@ -35,7 +35,50 @@ btnConfirmLogout.addEventListener('click', async () => {
 });
 
 // ==========================================
-// 3. LÓGICA DEL CRM (Módulos y Menú)
+// 3. FUNCIÓN GLOBAL DE ELIMINACIÓN (NUEVA)
+// ==========================================
+export function confirmarEliminacion(mensaje, titulo = "Eliminar Elemento") {
+    return new Promise((resolve) => {
+        const modal = document.getElementById('delete-modal');
+        const titleEl = document.getElementById('delete-modal-title');
+        const msgEl = document.getElementById('delete-modal-message');
+        
+        // Asignar los textos dinámicos
+        titleEl.textContent = titulo;
+        msgEl.innerHTML = mensaje;
+        
+        modal.classList.add('active');
+
+        // Función interna para cerrar el modal y resolver la promesa
+        const cerrar = (resultado) => {
+            modal.classList.remove('active');
+            
+            // Clonar los botones para eliminar los event listeners anteriores
+            const btnConfirm = document.getElementById('btn-confirm-delete');
+            const btnCancel = document.getElementById('btn-cancel-delete');
+            const btnClose = document.getElementById('btn-close-delete');
+            
+            btnConfirm.replaceWith(btnConfirm.cloneNode(true));
+            btnCancel.replaceWith(btnCancel.cloneNode(true));
+            btnClose.replaceWith(btnClose.cloneNode(true));
+            
+            resolve(resultado);
+        };
+
+        // Asignar eventos a los botones actuales
+        document.getElementById('btn-confirm-delete').addEventListener('click', () => cerrar(true));
+        document.getElementById('btn-cancel-delete').addEventListener('click', () => cerrar(false));
+        document.getElementById('btn-close-delete').addEventListener('click', () => cerrar(false));
+        
+        // Cerrar si se hace clic fuera del modal
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) cerrar(false);
+        });
+    });
+}
+
+// ==========================================
+// 4. LÓGICA DEL CRM (Módulos y Menú)
 // ==========================================
 function iniciarCRM() {
     // Menú lateral (abrir/cerrar submenús)

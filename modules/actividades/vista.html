@@ -1,6 +1,5 @@
 <div class="activities-toolbar">
     <div class="filters-grid">
-        <!-- Filtro Estado (Ahora está dentro de la cuadrícula) -->
         <div class="filter-group">
             <label>Estado</label>
             <select id="filtro-estado">
@@ -48,6 +47,7 @@
     <table class="data-table">
         <thead>
             <tr>
+                <th style="width: 40px;"></th> <!-- 🔥 Columna para el botón desplegar -->
                 <th>ESTADO</th>
                 <th>ACTIVIDAD</th>
                 <th>TIPO DE ACTIVIDAD</th>
@@ -58,23 +58,24 @@
             </tr>
         </thead>
         <tbody id="tabla-actividades">
-            <tr><td colspan="7" style="text-align:center; padding: 20px;">Cargando actividades...</td></tr>
+            <tr><td colspan="8" style="text-align:center; padding: 20px;">Cargando actividades...</td></tr>
         </tbody>
     </table>
 </div>
 
-<!-- MODAL CREAR ACTIVIDAD -->
+<!-- MODAL CREAR / EDITAR ACTIVIDAD -->
 <div class="modal-overlay" id="modal-actividad">
     <div class="modal-content modal-lg">
         <div class="modal-header">
-            <h2>Crear actividad</h2>
+            <h2 id="modal-titulo">Crear actividad</h2>
             <button class="btn-close" id="btn-cerrar-modal-act"><i class="fa-solid fa-xmark"></i></button>
         </div>
         
         <form id="form-actividad">
+            <!-- 🔥 INPUT OCULTO PARA SABER SI EDITAMOS -->
+            <input type="hidden" id="act-id">
+            
             <div class="modal-body-scroll">
-                
-                <!-- BUSCADOR DE CONTACTO -->
                 <div class="form-group custom-select-wrapper">
                     <label>Contacto *</label>
                     <input type="text" id="act-contacto-search" placeholder="Buscar contacto por nombre..." autocomplete="off">
@@ -130,7 +131,6 @@
                     </select>
                 </div>
 
-                <!-- BUSCADOR DE NEGOCIO -->
                 <div class="form-group custom-select-wrapper">
                     <label>Negocio</label>
                     <input type="text" id="act-negocio-search" placeholder="Buscar negocio por nombre..." autocomplete="off">
@@ -151,13 +151,30 @@
                     <span class="toggle-label">Marcar como realizada</span>
                 </div>
 
-            </div> <!-- FIN DEL CONTENEDOR CON SCROLL -->
+            </div>
 
-            <!-- BOTONES FIJOS ABAJO -->
             <div class="modal-actions">
                 <button type="button" class="btn-secondary" id="btn-cancelar-act">Cancelar</button>
                 <button type="submit" class="btn-primary">Guardar</button>
             </div>
         </form>
+    </div>
+</div>
+
+<!-- MODAL ELIMINAR ACTIVIDAD -->
+<div class="modal-overlay" id="modal-eliminar-actividad">
+    <div class="modal-content" style="max-width: 400px;">
+        <div class="modal-header">
+            <h2>Eliminar Actividad</h2>
+            <button class="btn-close" id="btn-cerrar-modal-eliminar"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="modal-body" style="padding: 20px;">
+            <p style="margin-top: 0;">¿Estás seguro de que deseas eliminar la actividad <strong id="eliminar-titulo-actividad"></strong>?</p>
+            <p style="font-size: 13px; color: #888;">Esta acción no se puede deshacer.</p>
+        </div>
+        <div class="modal-actions" style="padding: 15px 20px; border-top: 1px solid #eee; display: flex; justify-content: flex-end; gap: 10px;">
+            <button type="button" class="btn-secondary" id="btn-cancelar-eliminar">Cancelar</button>
+            <button type="button" class="btn-primary" id="btn-confirmar-eliminar" style="background-color: #e74c3c;">Eliminar</button>
+        </div>
     </div>
 </div>
